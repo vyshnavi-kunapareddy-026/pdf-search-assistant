@@ -1,0 +1,24 @@
+# Virtual environment
+venv-pdf-search-assistant/
+dist/
+build/
+
+# Jupyter / VSCode
+.ipynb_checkpoints/
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+# Byte-compiled
+__pycache__/
+
+# Env files
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.env
+.env
+.env.*
