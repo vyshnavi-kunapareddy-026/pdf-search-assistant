@@ -68,20 +68,25 @@ class PDFQAEngine:
     def _call_llm(self, prompt: str) -> str:
         try:
             start = time.time()
-            print(f"[DEBUG] Prompt length: {len(prompt)} chars")
+            prompt_length = len(prompt)
+            print(f"[DEBUG] Prompt length: {prompt_length} chars")
+
+            # Use LLaMA for large prompts, Gemma for smaller ones
+            model_name = "llama3" if prompt_length > 3000 else "gemma:2b"
+
             response = requests.post(
                 "http://localhost:11434/api/generate",
                 json={
-                    "model": "gemma:2b",
-                    # "model": "llama3",
+                    "model": model_name,
                     "prompt": prompt,
                     "stream": False
                 }
             )
             duration = time.time() - start
-            print(f"[LLM] Response took {duration:.2f} seconds")
+            print(f"[LLM] ({model_name}) Response took {duration:.2f} seconds")
             response.raise_for_status()
             return response.json()["response"].strip()
+
         except Exception as e:
             print(f"[ERROR] LLM call failed: {e}")
             return "Sorry, I couldn't process that."
