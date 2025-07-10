@@ -1,113 +1,123 @@
 
-# 🤖 AI-Powered PDF Search Assistant
+# 📄 AI-Powered PDF Chat Assistant
 
-Tired of manually scanning through long PDFs just to find that one paragraph you need?
-This assistant helps you **upload any PDF, ask questions about it, and get summaries** — all running *locally* on your machine.
-
----
-
-## 🌟 What It Does
-
-- 📂 Upload any PDF (books, papers, invoices — anything!)
-- 🧠 Get a smart summary of what’s inside
-- 💬 Ask it questions in plain English and get contextual answers
-- 🔒 100% local — No API keys or internet needed
+A lightweight, privacy-friendly assistant that lets you:
+- 🧠 Summarize PDFs
+- 💬 Ask questions about the content
+- 💾 Run entirely offline using local LLMs via Ollama
 
 ---
 
-## 🛠️ Built With
+## 🚀 Features
 
-- **Python** – backend logic
-- **Gradio** – beautiful and simple user interface
-- **PyMuPDF** – PDF text extraction
-- **SentenceTransformers** – for embeddings
-- **ChromaDB** – local vector search engine
-- **Ollama** – runs your local LLM (e.g., Mistral, LLaMA3, Gemma)
-
----
-
-## 🗂️ Project Structure
-
-```
-pdf-search-assistant/
-├── src/                  # core logic
-│   ├── pdf_reader.py     # PDF text extractor
-│   └── qa_pipeline.py    # QA engine: embed, search, answer
-├── ui/
-│   └── app.py            # Gradio interface
-├── data/                 # where your uploaded PDFs go
-├── assets/               # images, icons, etc.
-├── requirements.txt      # dependencies
-├── .env.example
-└── README.md             # this file
-```
+✅ Upload and parse any PDF using PyMuPDF
+✅ Chunk and embed content using Sentence Transformers
+✅ Store embeddings in ChromaDB for fast vector search
+✅ Summarize PDF content using a local LLM (`gemma:2b` or `llama3`)
+✅ Ask questions and get accurate answers from the PDF
+✅ Auto-select faster models for short vs. long PDFs
+✅ Clean Gradio UI for upload, summary, and Q&A interaction
+✅ 100% local — no API keys or internet access required
 
 ---
 
-## 🚀 Getting Started
+## 🧠 How It Works
 
-### 1. Clone and install dependencies
+1. Extracts text from uploaded PDF
+2. Splits text into smaller chunks (~300 words with overlap)
+3. Embeds chunks with `all-MiniLM-L6-v2`
+4. Stores embeddings in ChromaDB
+5. On user query or summary request:
+   - Retrieves top-matching chunks (for Q&A)
+   - Uses prompt + chunks to generate answer/summary via Ollama
+
+---
+
+## 🛠 Tech Stack
+
+| Tool            | Purpose                        |
+|-----------------|--------------------------------|
+| Python          | Core backend logic             |
+| Gradio          | Web UI                         |
+| PyMuPDF         | PDF text extraction            |
+| SentenceTransformers | Chunk embedding            |
+| ChromaDB        | Vector database                |
+| Ollama          | Local LLM runtime (`gemma`, `llama3`) |
+
+---
+
+## 🧪 Local Setup
+
+### 1. Clone the repo
 
 ```bash
 git clone https://github.com/your-username/pdf-search-assistant.git
 cd pdf-search-assistant
+```
+
+### 2. Install dependencies
+
+```bash
 pip install -r requirements.txt
 ```
 
-### 2. Start Ollama with your model of choice
+### 3. Pull required models using Ollama
 
 ```bash
-ollama run gemma:2b
+ollama pull gemma:2b
+ollama pull llama3
 ```
 
-(You can replace `gemma:2b` with `llama3`, `mistral`, or `yi` if installed)
-
-### 3. Run the app
+### 4. Run the app
 
 ```bash
 python ui/app.py
 ```
 
-Go to [http://localhost:7860](http://localhost:7860) and start chatting with your PDF!
+Access it at `http://localhost:7860`
 
 ---
 
-## 🧠 How It Works (Behind the Scenes)
+## 📂 Folder Structure
 
-1. We read the PDF and split it into text chunks.
-2. Those chunks are converted into embeddings using SentenceTransformers.
-3. ChromaDB helps us search for the most relevant chunks.
-4. Your query + those chunks are sent to a local LLM via Ollama.
-5. The model replies with a contextual answer.
-
-It’s like ChatGPT — but with a memory of your document, and all on your machine.
+```
+pdf-search-assistant/
+├── ui/
+│   └── app.py              # Gradio UI logic
+├── src/
+│   ├── pdf_reader.py       # Extracts text from PDFs
+│   └── qa_pipeline.py      # Embeds, stores, and queries
+├── data/                   # Uploaded PDFs (optional)
+├── requirements.txt
+└── README.md
+```
 
 ---
 
 ## 🎯 Example Use Cases
 
-- 🧾 Ask questions about academic papers
-- 📚 Chat with textbooks or course notes
-- 📄 Extract insights from contracts, reports, resumes
-- 🧪 Summarize long technical documentation
+- Summarizing academic papers or resumes
+- Asking questions about contracts or proposals
+- Reviewing meeting transcripts or case files
 
 ---
 
-## 🔮 What’s Next?
+## 📌 What’s Next? (If You Want to Extend)
 
-- Multiple PDF support
-- Source references in answers
-- More powerful summarization
-- Streamed LLM responses
+- [ ] Streamed responses from LLMs
+- [ ] Source references in answers
+- [ ] Multi-PDF upload support
+- [ ] Export summaries
 
 ---
 
-## 🧑‍💻 Author
+## 👤 Author
 
-Made by Vyshnavi Kunapareddy
+Built with ❤️ by Vyshnavi Kunapareddy
+
 
 ---
 
 ## 🪪 License
 
-MIT License – Free to use, modify, and share.
+MIT License

@@ -6,7 +6,7 @@ import chromadb
 from chromadb.config import Settings
 import requests
 import time
-
+# from src.chunker import chunk_text
 
 def chunk_text(text: str, chunk_size: int = 500, overlap: int = 50) -> List[str]:
     words = text.split()
