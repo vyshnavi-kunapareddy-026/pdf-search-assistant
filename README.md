@@ -101,7 +101,20 @@ pdf-search-assistant/
 - Reviewing meeting transcripts or case files
 
 ---
+---
 
+## 🖼️ Demo Screenshots
+
+### 📤 Upload and Process PDF
+![Upload PDF](images/pdf_upload.png)
+
+### 📚 Summarize the PDF
+![Summarize PDF](images/summarize.png)
+
+### 💬 Ask Questions from the PDF
+![Chat with PDF](images/chat.png)
+
+---
 ## 📌 What’s Next? (If You Want to Extend)
 
 - [ ] Streamed responses from LLMs
